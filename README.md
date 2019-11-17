@@ -1,4 +1,4 @@
-#Overview
+# Overview
 ### 168 Hours
 
 This app can help you with balancing your time spending.
@@ -29,7 +29,7 @@ App consists of three modules:
   > Contains web UI. Uses Spring Boot with Thymeleaf, 
   > core and hibernate-persistence modules.
 
-#Notes
+# Notes
 This app is still in _early development_ and has only the 
 most basic functionality implemented (like adding days with 
 various segmentation types, adding categories and setting 
@@ -38,18 +38,19 @@ them to segments, editing comments on those segments).
 I will add some analysis options and more data editing forms 
 (including import and export).
 
-##### Database
+#### Database
 As of current version database is created in your user folder 
 ('hours168' directory).
 
-#####Screenshots
-<img src="screenshots/main.png" width="100%"/>
+#### Screenshots
 
 > Timetable page
 
-<img src="screenshots/categories.png" width="100%"/>
+<img src="screenshots/main.png" width="100%"/>
 
 > Categories page
+
+<img src="screenshots/categories.png" width="100%"/>
 
 
 [168h]:https://lauravanderkam.com/books/168-hours/
