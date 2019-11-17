@@ -29,6 +29,29 @@ App consists of three modules:
   > Contains web UI. Uses Spring Boot with Thymeleaf, 
   > core and hibernate-persistence modules.
 
+# Running the app
+0. Install **JDK** (at least version 8).
+1. Download repository **.zip** and extract files. 
+   If you have git installed, you can execute 
+   `git clone https://github.com/Midest/168-Hours.git`. 
+2. Execute command: 
+    - `gradle.bat build` (Windows) 
+	- `./gradlew build`  (UN*X)
+3. Execute command: 
+    - `gradle.bat bootJar` (Windows)
+	- `./gradlew bootJar`  (UN*X)
+4. Go to `./web/build/libs` project folder and 
+   find `web-1.0.1-SNAPSHOT.jar` (or similar named jar-file). 
+   It is the app.
+5. Run it with command: 
+    - `java -jar web-1.0.1-SNAPSHOT.jar` 
+    (you can create run script with command for convenience)
+6. App will run on `http://localhost:8080/`.
+7. To stop, you need to shutdown embedded Tomcat server 
+   (e.g. press `Ctrl+C` if run from _Windows Command Prompt_). 
+   Or simply kill appropriate `java` process. _It shouldn't 
+   corrupt the database._ :)
+
 # Notes
 This app is still in _early development_ and has only the 
 most basic functionality implemented (like adding days with 
