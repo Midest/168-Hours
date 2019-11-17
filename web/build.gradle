@@ -1,0 +1,22 @@
+apply plugin: 'org.springframework.boot'
+
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':hibernate-persistence')
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

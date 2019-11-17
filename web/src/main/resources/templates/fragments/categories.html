@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
+</head>
+<body>
+    <th:block th:fragment="categoriesOptions" th:each="cat : ${categoriesList}">
+                            <option th:text="${cat.key}"
+                                    th:value="${cat.value}"
+                                    th:selected="${cat_id==cat.value}">Name</option></th:block>
+
+    <div th:fragment="categoriesTree" th:remove="tag">
+        <ul id="menu-tree" class="list-group mt-2 active">
+            <li class="list-group-item"
+                th:classappend="${not #lists.isEmpty(cat.children)}? collapse-tree"
+                th:each="cat : ${categoriesRoots}" >
+                <input type="checkbox" th:id="${'mt-' + cat.id}">
+                <label class="my-0" th:for="${'mt-' + cat.id}" th:text="${cat.name}">Name</label>
+                <form method="post"><button th:formaction="@{__${T(me.midest.hours168.web.util.Mappings).DELETE_CATEGORY}__}"
+                        th:value="${cat.id}" name="id" class="btn btn-sm my-0 py-0 px-1">&times;</button></form>
+                <div th:if="${not #lists.isEmpty(cat.children)}" th:with="odd=${true}, categoriesRoots = ${cat.children}"
+                     th:include="::categoriesSubTree" th:remove="tag" >Children</div></li>
+        </ul>
+    </div>
+
+                <div th:fragment="categoriesSubTree" th:remove="tag"><ul class="list-group">
+                    <li class="list-group-item"
+                        th:classappend="|${not #lists.isEmpty(cat.children)? 'collapse-tree': '' } ${odd? 'list-group-item-info' : ''}|"
+                        th:each="cat : ${categoriesRoots}" >
+                        <input type="checkbox" th:id="${'mtn-' + cat.id}">
+                        <label th:for="${'mtn-' + cat.id}" th:text="${cat.name}">Name</label>
+                        <form method="post"><button th:formaction="@{__${T(me.midest.hours168.web.util.Mappings).DELETE_CATEGORY}__}"
+                                th:value="${cat.id}" name="id" class="btn btn-sm my-0 py-0 px-1">&times;</button></form>
+                        <div th:if="${not #lists.isEmpty(cat.children)}" th:with="odd = ${not odd}, categoriesRoots = ${cat.children}"
+                             th:include="::categoriesSubTree" th:remove="tag" >Children</div></li>
+                </ul></div>
+</body>
+</html>

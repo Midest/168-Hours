@@ -1,0 +1,34 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.0.RELEASE' apply false
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+}
+
+ext {
+	springBootVersion = '2.2.0.RELEASE'
+}
+
+allprojects {
+	group = 'me.midest.hours168'
+	version = '1.0.1-SNAPSHOT'
+	sourceCompatibility = 1.8
+}
+
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+		}
+	}
+}
+
+
+
+

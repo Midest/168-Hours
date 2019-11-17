@@ -1,0 +1,90 @@
+/* Font */
+.arial {
+    font-family: Arial !important;
+}
+
+.days-boundaries {
+    font-size:small;
+}
+
+/* Sizing */
+.min-w-100 {
+    min-width: 100px;
+}
+
+.min-w-250 {
+    min-width: 250px;
+}
+
+.min-w-300 {
+    min-width: 300px;
+}
+
+.mh-65 {
+    max-height: 65% !important;
+}
+
+.table thead th {
+    z-index: 10;
+    position: sticky; top: 0;
+}
+
+.table table tbody {
+    overflow-y: auto;
+}
+
+/* Fill td workaround */
+.table tr {
+    height: 1px;
+}
+
+.h-inherit {
+    height: inherit;
+}
+
+/* Categories */
+#menu-tree label {
+    position: relative;
+    width: 91%;
+    cursor: pointer;
+}
+
+#menu-tree input[type=checkbox] {
+    display: none;
+}
+
+#menu-tree li > form {
+    display: inline;
+    width: 3%;
+}
+
+li.collapse-tree > form > button {
+
+}
+
+li.collapse-tree ul {
+    visibility: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.4s;
+}
+
+li.collapse-tree > label::after {
+    content: "/";
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transition: all 0.4s;
+}
+
+/* Show when checked */
+li.collapse-tree input:checked ~ ul {
+    visibility: visible;
+    opacity: 1;
+    max-height: 999px;
+}
+
+li.collapse-tree input:checked ~ label::after {
+    transform: rotate(-50deg);
+}

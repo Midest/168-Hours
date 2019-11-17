@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#head-id"
+          th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#menu-id"
+          th:replace="~{fragments/menu :: menuFragment}"/>
+    <attr sel="#footer-id"
+          th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#home-anchor"
+          th:href="@{__${T(me.midest.hours168.web.util.Mappings).HOME}__}" th:text="Home"/>
+    <attr sel="#bootstrap-js"
+          th:replace="~{fragments/footer :: jsFragment}"/>
+
+    <attr sel="#categories"
+          th:replace="~{fragments/categories :: categoriesTree}"/>
+    <attr sel="#aliases"
+          th:placeholder="|Aliases ('${T(me.midest.hours168.core.model.Category).ALIAS_DELIMITER}'-separated)|"/>
+    <attr sel="#categories_options"
+          th:replace="~{fragments/categories :: categoriesOptions}"/>
+    <attr sel="#new-anchor"
+          th:action="@{__${T(me.midest.hours168.web.util.Mappings).NEW_CATEGORY}__}"/>
+</thlogic>
+

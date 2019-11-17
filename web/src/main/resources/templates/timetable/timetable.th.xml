@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#head-id"
+          th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#menu-id"
+          th:replace="~{fragments/menu :: menuFragment}"/>
+    <attr sel="#footer-id"
+          th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#home-anchor"
+          th:href="@{__${T(me.midest.hours168.web.util.Mappings).HOME}__}" th:text="Home"/>
+    <attr sel="#bootstrap-js"
+          th:replace="~{fragments/footer :: jsFragment}"/>
+
+    <attr sel="#days-boundaries"
+          th:replace="~{fragments/time-table :: daysBoundaries}"/>
+    <attr sel="#timetable-head"
+          th:replace="~{fragments/time-table :: daysTableHeaders}"/>
+    <attr sel="#timetable-body"
+          th:replace="~{fragments/time-table :: daysTableFragment}"/>
+    <attr sel="#types_options"
+          th:replace="~{fragments/time-table :: typesOptions}"/>
+    <attr sel="#new-anchor"
+          th:action="@{__${T(me.midest.hours168.web.util.Mappings).NEW_DAY}__}"/>
+    <attr sel="#dtpFrom"
+          th:value="${from==null ? '' : #temporals.format(from, 'dd.MM.yyyy')}"/>
+    <attr sel="#dtpTo"
+          th:value="${to==null ? '' : #temporals.format(to, 'dd.MM.yyyy')}"/>
+    <attr sel="#show-dates"
+          th:action="@{__${T(me.midest.hours168.web.util.Mappings).SHOW_DATES}__}"/>
+</thlogic>
+

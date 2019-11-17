@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><div align="center">
+    <span th:fragment="firstDay" th:text="${#temporals.format(firstDay.date, 'yyyy.MM.dd')}"></span>
+    <span th:fragment="lastDay" th:text="${#temporals.format(lastDay.date, 'yyyy.MM.dd')}"></span>
+
+    <div th:fragment="daysBoundaries" th:if="${firstDay != null}"
+         class="days-boundaries d-flex justify-content-center font-italic text-secondary">
+        <span>First day in database is&nbsp;</span>
+        <span th:replace="~{:: firstDay}">From</span>
+        <span>, last day is&nbsp;</span>
+        <span th:replace="~{:: lastDay}">To</span>
+    </div>
+
+    <table border="1">
+        <thead th:fragment="daysTableHeaders" class="thead-light">
+            <tr>
+                <th class="col-1 col-sm-auto"><sub>Time</sub>\<sup>Date</sup></th>
+                <th:block th:each="day: ${days}">
+                    <th class="col-md-auto min-w-250">
+                        <form>
+                            <span th:text="${#temporals.format(day.date, 'yyyy.MM.dd')}">Date</span>
+                            <button th:formaction="@{__${T(me.midest.hours168.web.util.Mappings).DELETE_DAY}__}"
+                                      th:value="${day.id}" name="id" class="btn btn-sm my-0 py-0 px-1">&times;</button></form>
+                    </th>
+                </th:block>
+            </tr>
+        </thead>
+
+        <tbody th:fragment="daysTableFragment" th:if="${count!=null}" >
+            <th:block th:each="i : ${#numbers.sequence(0,count-1)}">
+                <tr>
+                    <th class="col-1 col-sm-auto p-2 min-w-100 h-100" th:text="${timeperiods[i]}">.time</th>
+                    <th:block th:each="ch: ${segmentschunks}">
+                        <td class="col-md-auto p-1" th:if="${ch[i].segmentId > 0}" th:rowspan="${ch[i].length}"
+                            th:classappend="${ch[i].length > 1} ? h-inherit : h-100">
+                            <form th:action="@{__${T(me.midest.hours168.web.util.Mappings).UPDATE_TIMESEGMENT}__}"
+                                  class="h-100" method="post"><div class="d-flex flex-column h-100">
+                                    <input hidden th:value="${ch[i].segmentId}" name="segmentId">
+                                <div class="input-group mb-0" id="cat">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary btn-sm arial"
+                                                type="button"
+                                                onclick="var el = $(this)
+                                                .parent().parent().parent().find('#text');
+                                                el.toggleClass('d-none'); el.toggleClass('d-flex');">&#128221;</button>
+                                    </div>
+                                    <select onchange="this.form.submit()"
+                                            class="custom-select custom-select-sm border-secondary font-weight-bold pl-0 py-0"
+                                            id="selectParent" name="categoryId">
+                                        <option value="-1">-- no category --</option>
+                                        <span th:replace="~{fragments/categories :: categoriesOptions(cat_id=${ch[i].category == null ? -1 : ch[i].category.id})}">Options</span>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-0 flex-fill"
+                                     th:classappend="${(ch[i].comment != null && !ch[i].comment.isEmpty()) ? 'd-flex' : 'd-none'}" id="text">
+                                    <textarea name="comment"
+                                              rows="1"
+                                              class="form-control form-control-sm border-secondary border-top-0 p-1"
+                                              placeholder="Comment"><th:block
+                                            th:if="${ch[i].comment != null && !ch[i].comment.isEmpty()}"
+                                            th:text="${ch[i].comment}">
+                                        Comment
+                                    </th:block></textarea>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary btn-sm border-top-0 arial" type="submit">&#128190;</button>
+                                    </div>
+                                </div>
+                            </div></form>
+                        </td>
+                    </th:block>
+                </tr>
+            </th:block>
+        </tbody>
+    </table>
+
+    <th:block th:fragment="typesOptions" th:each="t : ${T(me.midest.hours168.core.model.TimeSegmentType).values()}">
+                    <option th:text="${t.toString()}" th:value="${t.ordinal()}">Name</option></th:block>
+</div>
+</body>
+</html>

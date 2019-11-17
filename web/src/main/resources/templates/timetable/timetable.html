@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head id="head-id">
+    <title>Title</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+          integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
+</head>
+<body class="h-100">
+<div class="container-fluid d-flex flex-column flex-grow-1 vh-100">
+    <div class="row"><div class="col p-0">
+        <div id="menu-id">Menu</div>
+    </div></div>
+    <div class="row justify-content-center flex-column"><div class="col">
+        <h1 class="d-flex justify-content-center pt-2">Days timetable</h1>
+        <span id="days-boundaries">Days</span>
+    </div></div>
+
+    <div class="row justify-content-center my-3 d-flex">
+        <form id="show-dates" class="form-inline" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <input id="dtpFrom" type="text" class="dtp form-control" name="from" placeholder="From">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <input id="dtpTo" type="text" class="dtp form-control" name="to" placeholder="To">
+            </div>
+            <button class="btn btn-primary mb-2">Show</button>
+        </form>
+        <div class="flex-grow-1"></div>
+        <form id="new-anchor" class="form-inline" method="post">
+            <div class="form-group mx-sm-3 mb-2">
+                <input id="dtp" type="text" class="dtp form-control" name="date" placeholder="Select date">
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+                <select class="custom-select" id="type" name="typeId">
+                    <option value="-1"> -- period length -- </option>
+                    <span id="types_options"></span>
+                </select>
+            </div>
+            <button class="btn btn-primary mb-2 mr-2">New day</button>
+        </form>
+    </div>
+
+    <div class="row flex-grow-1 mh-65 border border-primary mb-2"><div class="col mh-100 table-responsive p-0">
+        <table border="1" class="table w-100 text-center table-bordered table-striped m-0">
+            <thead id="timetable-head">
+                <tr><th>Time\Date</th><th>2000-01-01</th><th>2000-01-02</th></tr>
+            </thead>
+            <tbody id="timetable-body">
+                <tr><th>00:00-24:00</th><td>Activity</td><td>Another activity</td></tr>
+            </tbody>
+        </table>
+    </div></div>
+
+    <div class="row justify-content-center">
+        <h6 class="d-flex justify-content-center"><a id="home-anchor">Home</a></h6>
+    </div>
+
+    <div class="row justify-content-center">
+        <footer id="footer-id">
+            <p>Created</p>
+        </footer>
+    </div>
+</div>
+<div id="bootstrap-js"></div>
+<script type="text/javascript">
+        $('.dtp').datepicker({
+            format: "dd.mm.yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            language: "en-GB",
+            forceParse: false,
+            daysOfWeekHighlighted: "0,6",
+            autoclose: true,
+            todayHighlight: true
+        });
+</script>
+</body>
+</html>

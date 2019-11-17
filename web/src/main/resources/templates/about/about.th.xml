@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#head-id"
+          th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#menu-id"
+          th:replace="~{fragments/menu :: menuFragment}"/>
+    <attr sel="#footer-id"
+          th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#home-anchor"
+          th:href="@{__${T(me.midest.hours168.web.util.Mappings).HOME}__}" th:text="Home"/>
+    <attr sel="#bootstrap-js"
+          th:replace="~{fragments/footer :: jsFragment}"/>
+
+    <attr sel="#categories-anchor"
+          th:href="@{__${T(me.midest.hours168.web.util.Mappings).CATEGORIES}__}"/>
+    <attr sel="#timetable-anchor"
+          th:href="@{__${T(me.midest.hours168.web.util.Mappings).TIMETABLE}__}"/>
+    <attr sel="#book-link"
+          th:href="'https://lauravanderkam.com/books/168-hours/'"/>
+</thlogic>
+
