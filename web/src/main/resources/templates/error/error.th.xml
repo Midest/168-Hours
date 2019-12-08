@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<thlogic>
+    <attr sel="#head-id"
+          th:replace="~{fragments/head :: headFragment}"/>
+    <attr sel="#menu-id"
+          th:replace="~{fragments/menu :: menuFragment}"/>
+    <attr sel="#footer-id"
+          th:replace="~{fragments/footer :: footerFragment}"/>
+    <attr sel="#home-anchor"
+          th:href="@{__${T(me.midest.hours168.web.util.Mappings).HOME}__}" th:text="Home"/>
+    <attr sel="#bootstrap-js"
+          th:replace="~{fragments/footer :: jsFragment}"/>
+
+    <attr sel="#error-code"
+          th:text="|Error type or code: ${errorCode}|"/>
+    <attr sel="#error-message"
+          th:text="${errorMessage}"/>
+    <attr sel="#error-advice"
+          th:text="${errorAdvice}"/>
+
+</thlogic>
+

@@ -14,6 +14,7 @@ public final class Mappings {
     public static final String DELETE_CATEGORY = "/categories/delete";
     public static final String CATEGORIES = "/categories";
     public static final String ABOUT = "/about";
+    public static final String ERROR = "/error";
 
     public static final String REDIRECT_TIMETABLE = REDIRECT + TIMETABLE;
     public static final String REDIRECT_CATEGORIES = REDIRECT + CATEGORIES;
