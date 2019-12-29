@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<body>
+<div id="alerts" th:fragment="alertsFragment" class="col">
+    <div th:if="${error}" th:text="${error}" class="alert-error w-50 m-2 p-2">
+        Error
+    </div>
+    <div th:if="${warning}" th:text="${warning}" class="alert-warning w-50 m-2 p-2">
+        Warning
+    </div>
+    <div th:if="${info}" th:text="${info}" class="alert-info w-50 m-2 p-2">
+        Info
+    </div>
+    <div th:if="${success}" th:text="${success}" class="alert-success w-50 m-2 p-2">
+        Info
+    </div>
+</div>
+</body>
+</html>
