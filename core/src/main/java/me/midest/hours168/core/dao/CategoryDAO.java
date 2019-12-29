@@ -63,4 +63,16 @@ public interface CategoryDAO {
      */
     Collection<Category> getCategories();
 
+    /**
+     * Get collection of only root categories.
+     * @return collection of root categories (may be empty)
+     */
+    Collection<Category> getRootCategories();
+
+    /**
+     * Check if object with given id exists (in repository).
+     * @return {@code true} if object with given id exists, {@code false} otherwise
+     */
+    boolean checkIfIdExists( long id );
+
 }

@@ -52,6 +52,12 @@ public interface CategoryService {
     long addOrUpdateCategory( Category category );
 
     /**
+     * Persist of update given categories in repository.
+     * @param categories collection of objects to add or update
+     */
+    void addOrUpdateCategories( Collection<Category> categories );
+
+    /**
      * Delete category with its children.
      * @param id unique number of the category
      * @return deleted category object or <code>null</code>
@@ -77,6 +83,12 @@ public interface CategoryService {
      * @return collection of all categories (may be empty)
      */
     Collection<Category> getCategories();
+
+    /**
+     * Get collection of only root categories.
+     * @return collection of root categories (may be empty)
+     */
+    Collection<Category> getRootCategories();
 
     /**
      * Get string representation of branch with given category and all its ancestors.

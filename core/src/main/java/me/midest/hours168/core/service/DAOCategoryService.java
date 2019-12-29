@@ -31,6 +31,11 @@ public class DAOCategoryService implements CategoryService {
     }
 
     @Override
+    public Collection<Category> getRootCategories() {
+        return categoryDAO.getRootCategories();
+    }
+
+    @Override
     public long persistCategory( Category category ) {
         return categoryDAO.persistCategory( category );
     }
@@ -51,11 +56,22 @@ public class DAOCategoryService implements CategoryService {
     @Override
     public long addOrUpdateCategory( Category category ) {
         long id = category.getId();
-        if( id <= 0 )
+        if( id <= 0 || !categoryDAO.checkIfIdExists( id ))
             id = persistCategory( category );
         else
             updateCategory( category );
         return id;
+    }
+
+    @Override
+    public void addOrUpdateCategories( Collection<Category> categories ) {
+        // Persist new entries first
+        categories.forEach( c -> {
+            if( !categoryDAO.checkIfIdExists( c.getId()))
+                categoryDAO.persistCategory( c );
+        } );
+        // Update all
+        categories.forEach( categoryDAO::updateCategory );
     }
 
     @Override
