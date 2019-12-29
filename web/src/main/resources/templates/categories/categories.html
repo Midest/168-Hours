@@ -13,14 +13,20 @@
 <div id="menu-id">Menu</div>
 <div align="center">
     <h1 class="py-2">Categories</h1>
-
+    <div id="alerts-id" class="d-none">alerts</div>
     <div class="container mb-5">
         <div class="row">
             <div class="col align-self-center text-left border-right rounded-right border-primary">
                 <ul id="categories">Category tree</ul>
+                <form id="download-anchor" method="POST">
+                    <div class="form-group mx-sm-3 mt-5" align="center">
+                        <button class="btn btn-primary mb-2">Download categories</button>
+                    </div>
+                </form>
             </div>
 
             <div class="col d-flex justify-content-center my-3">
+                <div class="col">
                 <form id="new-anchor" method="post">
                     <div class="form-group mx-sm-3 mb-2">
                         <input id="name" type="text" class="form-control mr-2" name="categoryName" placeholder="Name for category">
@@ -35,6 +41,17 @@
                     </div>
                     <button class="btn btn-primary mb-2" type="submit">New category</button>
                 </form>
+                <form id="upload-anchor" method="POST" enctype="multipart/form-data">
+                    <div class="form-group mx-sm-3 mt-5">
+                        <div class="custom-file mb-2">
+                            <input type="file" class="custom-file-input" id="fileInput" name="file"
+                                   onchange="changeFileName()" required>
+                            <label class="custom-file-label" for="fileInput">Choose file with categories...</label>
+                         </div>
+                        <button class="btn btn-primary mb-2">Load new categories from file</button>
+                    </div>
+                </form>
+                </div>
             </div>
         </div>
     </div>

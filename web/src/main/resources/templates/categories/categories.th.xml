@@ -4,6 +4,8 @@
           th:replace="~{fragments/head :: headFragment}"/>
     <attr sel="#menu-id"
           th:replace="~{fragments/menu :: menuFragment}"/>
+    <attr sel="#alerts-id"
+          th:replace="~{fragments/alerts :: alertsFragment}"/>
     <attr sel="#footer-id"
           th:replace="~{fragments/footer :: footerFragment}"/>
     <attr sel="#home-anchor"
@@ -19,5 +21,9 @@
           th:replace="~{fragments/categories :: categoriesOptions}"/>
     <attr sel="#new-anchor"
           th:action="@{__${T(me.midest.hours168.web.util.Mappings).NEW_CATEGORY}__}"/>
+    <attr sel="#upload-anchor"
+          th:action="@{__${T(me.midest.hours168.web.util.Mappings).UPLOAD_CATEGORIES}__}"/>
+    <attr sel="#download-anchor"
+          th:action="@{__${T(me.midest.hours168.web.util.Mappings).DOWNLOAD_CATEGORIES}__}"/>
 </thlogic>
 
