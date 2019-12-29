@@ -13,6 +13,8 @@ public final class Mappings {
     public static final String NEW_CATEGORY = "/categories/new";
     public static final String DELETE_CATEGORY = "/categories/delete";
     public static final String CATEGORIES = "/categories";
+    public static final String DOWNLOAD_CATEGORIES = "/categories/download";
+    public static final String UPLOAD_CATEGORIES = "/categories/upload";
     public static final String ABOUT = "/about";
     public static final String ERROR = "/error";
 
