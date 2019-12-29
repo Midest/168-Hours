@@ -65,6 +65,7 @@ public class Category {
      * @see #ALIAS_DELIMITER delimeter for aliases
      */
     public void setAliasesString( String aliasesString ) {
+        if( aliasesString == null ) aliasesString = "";
         this.aliasesString = aliasesString;
         if( this.aliases == null )
             this.aliases = new ArrayList<>();
