@@ -2,4 +2,5 @@ rootProject.name = 'hours168'
 include 'core'
 include 'web'
 include 'hibernate-persistence'
+include 'data-transfer'
 
