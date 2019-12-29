@@ -1,5 +1,7 @@
 package me.midest.hours168.hibernatepersistence.dao;
 
+import static me.midest.hours168.hibernatepersistence.dao.QueryLang.*;
+
 import me.midest.hours168.core.dao.CategoryDAO;
 import me.midest.hours168.core.dao.exceptions.DeletionException;
 import me.midest.hours168.core.model.Category;
@@ -22,10 +24,17 @@ public class HibernateCategoryDAO extends BaseCRUD<Category> implements Category
     }
 
     @Override
+    public boolean checkIfIdExists( long id ) {
+        String query = "SELECT EXISTS (SELECT * FROM categories WHERE id=:id)";
+        Map<String, Object> params = ParamBuilder.mapOf(1).put( "id", id ).get();
+        return (boolean) getAnyTypeWithParamQuery( query, SQL, params, 1 ).get( 0 );
+    }
+
+    @Override
     public Collection<Category> getCategories( String name ) {
         String query = "FROM categories WHERE name=:nm";
         Map<String, Object> params = ParamBuilder.mapOf(1).put( "nm", name ).get();
-        return getWithParamQuery( query, params );
+        return getWithParamQuery( query, HQL, params );
     }
 
     @Override
@@ -56,7 +65,7 @@ public class HibernateCategoryDAO extends BaseCRUD<Category> implements Category
                     .put( "pid", id )
                     .get();
             Category parent = category.getParent();
-            Collection<Category> children = getWithParamQuery( query, params );
+            Collection<Category> children = getWithParamQuery( query, HQL, params );
             category.setChildren( null );
             children.forEach( c -> {
                 c.setParent( parent );
@@ -86,7 +95,16 @@ public class HibernateCategoryDAO extends BaseCRUD<Category> implements Category
      */
     @Override
     public Collection<Category> getCategories() {
-        return getWithQuery( "FROM categories ORDER BY name ASC" );
+        return getWithQuery( "FROM categories ORDER BY name ASC", HQL );
+    }
+
+    /**
+     * {@inheritDoc} Sort by name in ascending order.
+     * @return {@inheritDoc}
+     */
+    @Override
+    public Collection<Category> getRootCategories() {
+        return getWithQuery( "FROM categories WHERE parent=null  ORDER BY name ASC", HQL );
     }
 
     /**
@@ -112,7 +130,7 @@ public class HibernateCategoryDAO extends BaseCRUD<Category> implements Category
     private boolean canDelete( long id ){
         String query = "FROM time_segments ts INNER JOIN ts.category c WHERE c.id=:id";
         Map<String, Object> params = ParamBuilder.mapOf(1).put( "id", id ).get();
-        return getWithParamQuery( query, params, 1 ).isEmpty();
+        return getWithParamQuery( query, HQL, params, 1 ).isEmpty();
     }
 
 }

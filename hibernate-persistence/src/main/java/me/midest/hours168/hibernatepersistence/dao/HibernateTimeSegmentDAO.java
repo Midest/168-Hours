@@ -1,5 +1,7 @@
 package me.midest.hours168.hibernatepersistence.dao;
 
+import static me.midest.hours168.hibernatepersistence.dao.QueryLang.*;
+
 import me.midest.hours168.core.dao.TimeSegmentDAO;
 import me.midest.hours168.core.model.TimeSegment;
 import me.midest.hours168.hibernatepersistence.util.ParamBuilder;
@@ -39,7 +41,7 @@ public class HibernateTimeSegmentDAO extends BaseCRUD<TimeSegment> implements Ti
     public Collection<TimeSegment> getTimeSegments( long dayId ) {
         String query = "FROM time_segments WHERE day_id=:di ORDER BY positionInDay ASC";
         Map<String, Object> params = ParamBuilder.mapOf(1).put( "di", dayId ).get();
-        return getWithParamQuery( query, params );
+        return getWithParamQuery( query, HQL, params );
     }
 
     /**
@@ -48,6 +50,6 @@ public class HibernateTimeSegmentDAO extends BaseCRUD<TimeSegment> implements Ti
      */
     @Override
     public Collection<TimeSegment> getTimeSegments() {
-        return getWithQuery( "FROM time_segments ORDER BY day_id, positionInDay ASC" );
+        return getWithQuery( "FROM time_segments ORDER BY day_id, positionInDay ASC", HQL );
     }
 }

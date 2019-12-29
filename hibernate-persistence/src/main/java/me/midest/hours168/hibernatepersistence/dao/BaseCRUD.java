@@ -2,6 +2,7 @@ package me.midest.hours168.hibernatepersistence.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.SharedSessionContract;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,8 +100,8 @@ abstract class BaseCRUD<E> {
      * @param query query string
      * @return list of objects
      */
-    List<E> getWithQuery( String query ){
-        return getWithParamQuery( query, null, -1 );
+    List<E> getWithQuery( String query, QueryLang lang ){
+        return getWithParamQuery( query, lang, null, -1 );
     }
 
     /**
@@ -109,8 +110,8 @@ abstract class BaseCRUD<E> {
      * @param limit maximum number of results
      * @return list of objects
      */
-    List<E> getWithQuery( String query, int limit ){
-        return getWithParamQuery( query, null, limit );
+    List<E> getWithQuery( String query, QueryLang lang, int limit ){
+        return getWithParamQuery( query, lang, null, limit );
     }
 
     /**
@@ -119,8 +120,8 @@ abstract class BaseCRUD<E> {
      * @param params query params
      * @return list of objects
      */
-    List<E> getWithParamQuery( String query, Map<String, Object> params ) {
-        return getWithParamQuery( query, params, -1 );
+    List<E> getWithParamQuery( String query, QueryLang lang, Map<String, Object> params ) {
+        return getWithParamQuery( query, lang, params, -1 );
     }
 
     /**
@@ -130,11 +131,35 @@ abstract class BaseCRUD<E> {
      * @param limit maximum number of results
      * @return list of objects
      */
+    List<E> getWithParamQuery( String query, QueryLang lang, Map<String, Object> params, int limit ) {
+        QuerySupplier sup;
+        switch( lang ) {
+            default:
+            case HQL: sup = SharedSessionContract::createQuery; break;
+            case SQL: sup = SharedSessionContract::createNativeQuery; break;
+        }
+        return getWithParamQuery( sup, query, params, limit );
+    }
+
+    List getAnyTypeWithParamQuery( String query, QueryLang lang, Map<String, Object> params, int limit ) {
+        QuerySupplier sup;
+        switch( lang ) {
+            default:
+            case HQL: sup = SharedSessionContract::createQuery; break;
+            case SQL: sup = SharedSessionContract::createNativeQuery; break;
+        }
+        return getAnyTypeWithParamQuery( sup, query, params, limit );
+    }
+
     @SuppressWarnings( "unchecked" )
-    List<E> getWithParamQuery( String query, Map<String, Object> params, int limit ){
+    private List<E> getWithParamQuery( QuerySupplier querySupplier, String query, Map<String, Object> params, int limit ){
+        return getAnyTypeWithParamQuery( querySupplier, query, params, limit );
+    }
+
+    private List getAnyTypeWithParamQuery( QuerySupplier querySupplier, String query, Map<String, Object> params, int limit ){
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        final Query q = session.createQuery( query );
+        final Query q = querySupplier.get( session, query );
         if( params != null ) params.forEach( q::setParameter );
         if( limit > 0 ) q.setMaxResults( limit );
         List result = q.list();

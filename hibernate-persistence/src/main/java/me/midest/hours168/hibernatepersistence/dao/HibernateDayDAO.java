@@ -1,5 +1,7 @@
 package me.midest.hours168.hibernatepersistence.dao;
 
+import static me.midest.hours168.hibernatepersistence.dao.QueryLang.*;
+
 import me.midest.hours168.core.model.Day;
 import me.midest.hours168.core.dao.DayDAO;
 import me.midest.hours168.hibernatepersistence.util.ParamBuilder;
@@ -29,21 +31,21 @@ public class HibernateDayDAO extends BaseCRUD<Day> implements DayDAO {
         Map<String, Object> params = ParamBuilder.mapOf(1)
                 .put( "dt", date )
                 .get();
-        List<Day> result = getWithParamQuery( query, params, 1 );
+        List<Day> result = getWithParamQuery( query, HQL, params, 1 );
         return result.isEmpty() ? null : result.get( 0 );
     }
 
     @Override
     public Day getLastDay() {
         String query = "FROM days ORDER BY day_date DESC";
-        List<Day> result = getWithQuery( query, 1 );
+        List<Day> result = getWithQuery( query, HQL, 1 );
         return result.isEmpty() ? null : result.get( 0 );
     }
 
     @Override
     public Day getFirstDay() {
         String query = "FROM days ORDER BY day_date ASC";
-        List<Day> result = getWithQuery( query, 1 );
+        List<Day> result = getWithQuery( query, HQL, 1 );
         return result.isEmpty() ? null : result.get( 0 );
     }
 
@@ -68,7 +70,7 @@ public class HibernateDayDAO extends BaseCRUD<Day> implements DayDAO {
      */
     @Override
     public Collection<Day> getDays() {
-        return getWithQuery( "FROM days ORDER BY day_date ASC" );
+        return getWithQuery( "FROM days ORDER BY day_date ASC", HQL );
     }
 
     /**
@@ -77,7 +79,7 @@ public class HibernateDayDAO extends BaseCRUD<Day> implements DayDAO {
      */
     @Override
     public Collection<Day> getLastDays( int n ) {
-        List<Day> days = getWithQuery( "FROM days ORDER BY day_date DESC", n );
+        List<Day> days = getWithQuery( "FROM days ORDER BY day_date DESC", HQL, n );
         Collections.reverse( days );
         return days;
     }
@@ -95,7 +97,7 @@ public class HibernateDayDAO extends BaseCRUD<Day> implements DayDAO {
                 .put( "minDt", min )
                 .put( "maxDt", max )
                 .get();
-        return getWithParamQuery( query, params );
+        return getWithParamQuery( query, HQL, params );
     }
 
 }
