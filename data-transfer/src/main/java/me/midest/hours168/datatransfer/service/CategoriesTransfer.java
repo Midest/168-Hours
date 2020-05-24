@@ -7,26 +7,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 
-public interface CategoriesTransfer {
-
-    /**
-     * Should return qualifier name for the class. By default tries to return prefix from classname.
-     * @return qualifier name for this implementation or {@code null}
-     */
-    default String returnType(){
-        final String interfaceName = "CategoriesTransfer";
-        String name = getClass().getSimpleName();
-        return name.contains( interfaceName )?
-                name.substring( 0, name.indexOf( interfaceName )).toLowerCase() : null;
-    }
-
-    /**
-     * Should return file extension (without dot). By default returns {@link #returnType() type}.
-     * @return file extension of transfer file type for this implementation
-     */
-    default String fileExtension(){
-        return returnType();
-    }
+public interface CategoriesTransfer extends Transfer {
 
     /**
      * Read categories list from input stream.
